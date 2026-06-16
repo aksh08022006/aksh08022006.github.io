@@ -41,7 +41,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    // `js` class is added to <html> before hydration by the inline script below
+    // (progressive enhancement). Suppress the expected className mismatch on <html>.
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} min-h-full bg-paper text-ink antialiased`}
       >
