@@ -3,6 +3,7 @@ import { work } from "@/lib/content";
 
 const statusColor: Record<ProjectStatus, string> = {
   Live: "#3f9b6d",
+  Complete: "#3f9b6d",
   "Open source": "#3f9b6d",
   "In progress": "#c98a3a",
   "Coming soon": "#97948a",
