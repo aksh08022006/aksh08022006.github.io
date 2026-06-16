@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@theme {
+  /* warm paper / ink editorial palette */
+  --color-paper: #f6f5f1;
+  --color-paper-2: #efece4;
+  --color-ink: #18160f;
+  --color-muted: #6c695f;
+  --color-faint: #807d72;
+  --color-line: #e3e0d6;
+  --color-accent: #c24d2c;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  section[id] {
+    scroll-margin-top: 5rem; /* offset anchors below the sticky header */
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-paper);
+  }
+}
+
+/* ── film grain: fixed, subtle, never intercepts pointer events ───────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ── custom cursor: precise dot + trailing ring ───────────────────────────── */
+.cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 34px;
+  width: 34px;
+  border: 1.5px solid #fff;
+  border-radius: 9999px;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+}
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+/* ── scroll progress bar (top edge) ───────────────────────────────────────── */
+.progress-track {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 60;
+  pointer-events: none;
+}
+.progress-bar {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: var(--color-accent);
+}
+
+/* ── small monospace label ────────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* understated text link with a settling underline */
+.tlink {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition:
+    background-size 0.25s ease,
+    color 0.2s ease;
+  padding-bottom: 1px;
+}
+.tlink:hover {
+  background-size: 0% 1px;
+  color: var(--color-accent);
+}
+
+/* ── GSAP reveals — content visible by default; hidden only when JS is present
+   (html.js, set before paint) so GSAP can fade it in without a flash. ──────── */
+.js [data-hero],
+.js [data-hero-title],
+.js [data-reveal] {
+  opacity: 0;
+}
+
+/* ── project rows ─────────────────────────────────────────────────────────── */
+.work-row {
+  position: relative;
+  isolation: isolate;
+}
+/* accent wash wipes in from the left on hover */
+.work-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-paper-2);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.work-row:hover::before {
+  transform: scaleX(1);
+}
+.work-index {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-faint);
+  transition: color 0.25s ease;
+}
+.work-row:hover .work-index {
+  color: var(--color-accent);
+}
+
+/* ── availability indicator ───────────────────────────────────────────────── */
+.status-dot {
+  position: relative;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #3f9b6d;
+}
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #3f9b6d;
+  animation: ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ── scroll cue ───────────────────────────────────────────────────────────── */
+.scroll-cue {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--color-ink), transparent);
+  transform-origin: top;
+  animation: cue 2s ease-in-out infinite;
+}
+@keyframes cue {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .status-dot::after,
+  .scroll-cue {
+    animation: none;
+  }
+  /* never hide content from users who prefer reduced motion */
+  .js [data-hero],
+  .js [data-hero-title],
+  .js [data-reveal] {
+    opacity: 1;
+  }
+}
