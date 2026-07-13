@@ -175,6 +175,9 @@ html.has-cursor * {
 
 /* ── activity heatmaps ────────────────────────────────────────────────────── */
 .activity-card {
+  display: flex;
+  height: 17rem;
+  flex-direction: column;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--color-line);
@@ -189,7 +192,15 @@ html.has-cursor * {
   border-color: #cbc6b8;
   transform: translateY(-2px);
 }
+.activity-visual {
+  display: grid;
+  height: 9rem;
+  flex: none;
+  align-items: center;
+  margin-top: 1.75rem;
+}
 .activity-image-wrap {
+  width: 100%;
   min-width: 0;
   overflow: hidden;
 }
@@ -199,6 +210,14 @@ html.has-cursor * {
   max-width: 100%;
   height: auto;
   mix-blend-mode: multiply;
+}
+.activity-visual.is-leetcode .activity-image-wrap,
+.activity-visual.is-leetcode .activity-profile-image {
+  height: 100%;
+}
+.activity-visual.is-leetcode .activity-profile-image {
+  object-fit: cover;
+  object-position: center bottom;
 }
 .activity-calendar {
   display: grid;

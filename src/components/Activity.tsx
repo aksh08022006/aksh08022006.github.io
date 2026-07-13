@@ -27,6 +27,7 @@ function PlaceholderHeatmap() {
 function ActivityCard({ profile }: { profile: ActivityProfile }) {
   const connected = Boolean(profile.handle && profile.heatmap);
   const isCodeforces = profile.label === "Codeforces" && Boolean(profile.handle);
+  const isLeetCode = profile.label === "LeetCode";
 
   return (
     <article data-reveal className="activity-card">
@@ -53,7 +54,7 @@ function ActivityCard({ profile }: { profile: ActivityProfile }) {
         )}
       </div>
 
-      <div className="mt-7 min-h-28">
+      <div className={`activity-visual ${isLeetCode ? "is-leetcode" : ""}`}>
         {isCodeforces ? (
           <div className="activity-image-wrap">
             <CodeforcesHeatmap handle={profile.handle} />
@@ -91,10 +92,8 @@ export default function Activity() {
 
         <div className="mt-10 grid gap-4">
           <ActivityCard profile={activity.profiles.github} />
-          <div className="grid gap-4 md:grid-cols-2">
-            <ActivityCard profile={activity.profiles.leetcode} />
-            <ActivityCard profile={activity.profiles.codeforces} />
-          </div>
+          <ActivityCard profile={activity.profiles.leetcode} />
+          <ActivityCard profile={activity.profiles.codeforces} />
         </div>
       </div>
     </section>
