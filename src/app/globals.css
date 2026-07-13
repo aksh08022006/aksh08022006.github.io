@@ -35,6 +35,10 @@
     background: var(--color-accent);
     color: var(--color-paper);
   }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
 }
 
 /* ── film grain: fixed, subtle, never intercepts pointer events ───────────── */
@@ -49,7 +53,7 @@ body::after {
   mix-blend-mode: multiply;
 }
 
-/* ── custom cursor: precise dot + trailing ring ───────────────────────────── */
+/* ── custom cursor: one quiet accent dot ──────────────────────────────────── */
 .cursor-layer {
   position: fixed;
   inset: 0;
@@ -58,24 +62,16 @@ body::after {
   visibility: hidden;
   opacity: 0;
 }
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 34px;
-  width: 34px;
-  border: 1.5px solid #fff;
-  border-radius: 9999px;
-  mix-blend-mode: difference;
-}
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  height: 6px;
-  width: 6px;
+  height: 10px;
+  width: 10px;
   border-radius: 9999px;
   background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgb(194 77 44 / 12%);
+  will-change: transform;
 }
 html.has-cursor,
 html.has-cursor * {
@@ -132,24 +128,30 @@ html.has-cursor * {
   opacity: 0;
 }
 
-/* ── project rows ─────────────────────────────────────────────────────────── */
-.work-row {
+/* ── project cards ────────────────────────────────────────────────────────── */
+.project-card {
   position: relative;
   isolation: isolate;
 }
-/* accent wash wipes in from the left on hover */
-.work-row::before {
+.project-card::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0 -1rem;
   z-index: -1;
   background: var(--color-paper-2);
+  border-radius: 0.75rem;
   transform: scaleX(0);
   transform-origin: 0 50%;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.work-row:hover::before {
+.project-card:hover::before {
   transform: scaleX(1);
+}
+.project-card h3 {
+  transition: color 0.25s ease;
+}
+.project-card:hover h3 {
+  color: var(--color-accent);
 }
 .work-index {
   font-family: var(--font-mono);
@@ -157,8 +159,127 @@ html.has-cursor * {
   color: var(--color-faint);
   transition: color 0.25s ease;
 }
-.work-row:hover .work-index {
+.project-card:hover .work-index {
   color: var(--color-accent);
+}
+.project-tag {
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  padding: 0.3rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  background: rgb(246 245 241 / 70%);
+}
+
+/* ── activity heatmaps ────────────────────────────────────────────────────── */
+.activity-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: rgb(246 245 241 / 72%);
+  padding: 1.5rem;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+.activity-card:hover {
+  border-color: #cbc6b8;
+  transform: translateY(-2px);
+}
+.activity-image-wrap {
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+.activity-image-wrap img {
+  mix-blend-mode: multiply;
+}
+.activity-calendar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 8px);
+  grid-auto-columns: 8px;
+  gap: 3px;
+  width: max-content;
+  min-width: 100%;
+}
+.activity-calendar span {
+  border-radius: 2px;
+  background: var(--color-line);
+}
+.activity-calendar span[data-level="1"] {
+  background: #efcfc6;
+}
+.activity-calendar span[data-level="2"] {
+  background: #e3a392;
+}
+.activity-calendar span[data-level="3"] {
+  background: #d16f55;
+}
+.activity-calendar span[data-level="4"] {
+  background: var(--color-accent);
+}
+.activity-calendar span[data-future="true"] {
+  opacity: 0.38;
+}
+.activity-calendar.is-loading {
+  opacity: 0.35;
+}
+.activity-fetch-state {
+  min-height: 7rem;
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--color-line);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+.activity-placeholder {
+  position: relative;
+  min-height: 7rem;
+  display: grid;
+  place-items: center;
+}
+.activity-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 4px;
+  opacity: 0.4;
+  filter: saturate(0.6);
+}
+.activity-grid span {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--color-line);
+}
+.activity-grid span[data-level="1"] {
+  background: #e8c4b9;
+}
+.activity-grid span[data-level="2"] {
+  background: #d78d78;
+}
+.activity-grid span[data-level="3"] {
+  background: var(--color-accent);
+}
+.activity-placeholder-label {
+  position: absolute;
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  background: var(--color-paper);
+  padding: 0.45rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 /* ── availability indicator ───────────────────────────────────────────────── */
@@ -217,6 +338,13 @@ html.has-cursor * {
   .status-dot::after,
   .scroll-cue {
     animation: none;
+  }
+  .activity-card,
+  .project-card::before {
+    transition: none;
+  }
+  .activity-card:hover {
+    transform: none;
   }
   /* never hide content from users who prefer reduced motion */
   .js [data-hero],

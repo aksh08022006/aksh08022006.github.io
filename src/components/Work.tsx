@@ -5,65 +5,74 @@ const statusColor: Record<ProjectStatus, string> = {
   Live: "#3f9b6d",
   Complete: "#3f9b6d",
   "Open source": "#3f9b6d",
-  "In progress": "#c98a3a",
-  "Coming soon": "#97948a",
+  Research: "#c98a3a",
 };
 
-function Row({ project }: { project: Project }) {
-  const inner = (
-    <>
-      <span className="work-index shrink-0">{project.id}</span>
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <article data-reveal className="project-card grid gap-5 py-8 sm:grid-cols-[3rem_1fr] sm:py-10">
+      <span className="work-index pt-1">{project.id}</span>
 
-      <h3 className="flex-1 font-serif text-3xl leading-none tracking-tight transition-colors group-hover:text-accent sm:text-5xl">
-        {project.name}
-      </h3>
+      <div>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h3 className="font-serif text-3xl leading-none tracking-tight sm:text-4xl">
+            {project.name}
+          </h3>
 
-      <span className="flex shrink-0 items-center gap-2">
-        <span
-          className="h-1.5 w-1.5 rounded-full"
-          style={{ backgroundColor: statusColor[project.status] }}
-        />
-        <span className="eyebrow hidden sm:inline">{project.status}</span>
-      </span>
+          <span className="flex shrink-0 items-center gap-2 pt-1.5">
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: statusColor[project.status] }}
+            />
+            <span className="eyebrow">{project.status}</span>
+          </span>
+        </div>
 
-      {project.href && (
-        <span className="shrink-0 text-xl text-faint transition-colors group-hover:text-accent">
-          ↗
-        </span>
-      )}
-    </>
-  );
+        <p className="mt-4 max-w-2xl leading-relaxed text-muted">{project.description}</p>
 
-  const cls = "work-row group flex items-center gap-4 px-3 py-6 sm:gap-6 sm:px-5";
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+          <ul className="flex flex-wrap gap-2" aria-label={`${project.name} technologies`}>
+            {project.tags.map((tag) => (
+              <li key={tag} className="project-tag">
+                {tag}
+              </li>
+            ))}
+          </ul>
 
-  return project.href ? (
-    <a
-      data-reveal
-      href={project.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${project.name} (opens in a new tab)`}
-      className={cls}
-    >
-      {inner}
-    </a>
-  ) : (
-    <div data-reveal className={cls}>
-      {inner}
-    </div>
+          <div className="flex gap-4">
+            {project.links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tlink text-sm font-medium"
+                aria-label={`${project.name} ${link.label.toLowerCase()} (opens in a new tab)`}
+              >
+                {link.label} ↗
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
 
 export default function Work() {
   return (
-    <section id="work" className="mx-auto max-w-3xl px-6 py-24 sm:px-8 sm:py-28">
-      <h2 data-reveal className="eyebrow border-b border-line pb-5">
-        {work.heading}
-      </h2>
+    <section id="work" className="mx-auto max-w-4xl px-6 py-24 sm:px-8 sm:py-28">
+      <div data-reveal className="flex items-end justify-between gap-6 border-b border-line pb-5">
+        <div>
+          <h2 className="eyebrow">{work.heading}</h2>
+          <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted">{work.intro}</p>
+        </div>
+        <span className="eyebrow hidden sm:block">Selected / 08</span>
+      </div>
 
-      <div className="mt-2 divide-y divide-line">
-        {projects.map((p) => (
-          <Row key={p.id} project={p} />
+      <div className="divide-y divide-line">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
 

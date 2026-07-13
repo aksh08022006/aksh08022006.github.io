@@ -12,7 +12,7 @@ export const profile = {
 
 export const nav = [
   { label: "Work", href: "#work" },
-  { label: "Blog", href: "#blog" },
+  { label: "Activity", href: "#activity" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -26,7 +26,42 @@ export const hero = {
 
 export const work = {
   heading: "Work",
+  intro:
+    "Shipped products and substantive original work. Forks, templates, and smaller experiments stay on GitHub.",
   more: { label: "More on GitHub", href: "https://github.com/aksh08022006" },
+};
+
+export const activity = {
+  heading: "Build streaks",
+  intro:
+    "A year of building in public, from shipped code to the problem-solving reps behind it.",
+  profiles: {
+    github: {
+      label: "GitHub",
+      handle: "aksh08022006",
+      href: "https://github.com/aksh08022006",
+      heatmap: "https://ghchart.rshah.org/c24d2c/aksh08022006",
+      width: 722,
+      height: 112,
+    },
+    leetcode: {
+      label: "LeetCode",
+      handle: "chickencheesesandwich",
+      href: "https://leetcode.com/u/chickencheesesandwich/",
+      heatmap:
+        "https://leetcard.jacoblin.cool/chickencheesesandwich?theme=light&font=DM%20Mono&ext=heatmap",
+      width: 500,
+      height: 320,
+    },
+    codeforces: {
+      label: "Codeforces",
+      handle: "penaldopessi",
+      href: "https://codeforces.com/profile/penaldopessi",
+      heatmap: "",
+      width: 0,
+      height: 0,
+    },
+  },
 };
 
 export const blog = {

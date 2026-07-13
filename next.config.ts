@@ -8,7 +8,13 @@ const root = dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   // Static export so it deploys cleanly to Cloudflare Pages (output dir: out/)
   output: "export",
-  images: { unoptimized: true },
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "ghchart.rshah.org" },
+      { protocol: "https", hostname: "leetcard.jacoblin.cool" },
+    ],
+  },
   trailingSlash: true,
   turbopack: { root },
 };

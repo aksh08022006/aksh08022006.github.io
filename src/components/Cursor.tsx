@@ -8,79 +8,85 @@ gsap.registerPlugin(useGSAP);
 
 const INTERACTIVE = "a, button, [data-cursor]";
 
-// A precise dot + a softly trailing ring. The ring uses mix-blend: difference so
-// it reads on any background; it grows over links/projects. Pointer devices only,
-// and disabled under prefers-reduced-motion (native cursor stays).
+// A single accent dot that follows the pointer and gently grows over interactive
+// elements. Fine-pointer devices only; reduced-motion users keep the native cursor.
 export default function Cursor() {
-  const dot = useRef<HTMLDivElement>(null);
-  const ring = useRef<HTMLDivElement>(null);
   const layer = useRef<HTMLDivElement>(null);
+  const dot = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const mm = gsap.matchMedia();
+  useGSAP(
+    (_context, contextSafe) => {
+      const mm = gsap.matchMedia();
+      const safe = contextSafe!;
 
-    mm.add(
-      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-      () => {
-        const html = document.documentElement;
-        html.classList.add("has-cursor"); // hides the native cursor
+      mm.add(
+        "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const html = document.documentElement;
+          html.classList.add("has-cursor");
 
-        gsap.set([dot.current, ring.current], { xPercent: -50, yPercent: -50 });
+          gsap.set(dot.current, { xPercent: -50, yPercent: -50 });
 
-        const dx = gsap.quickTo(dot.current, "x", { duration: 0.12, ease: "power3" });
-        const dy = gsap.quickTo(dot.current, "y", { duration: 0.12, ease: "power3" });
-        const rx = gsap.quickTo(ring.current, "x", { duration: 0.4, ease: "power3" });
-        const ry = gsap.quickTo(ring.current, "y", { duration: 0.4, ease: "power3" });
+          const xTo = gsap.quickTo(dot.current, "x", { duration: 0.16, ease: "power3" });
+          const yTo = gsap.quickTo(dot.current, "y", { duration: 0.16, ease: "power3" });
 
-        let shown = false;
-        const move = (e: PointerEvent) => {
-          dx(e.clientX);
-          dy(e.clientY);
-          rx(e.clientX);
-          ry(e.clientY);
-          if (!shown) {
-            shown = true;
-            gsap.to(layer.current, { autoAlpha: 1, duration: 0.3 });
-          }
-        };
-
-        const over = (e: PointerEvent) => {
-          const hit = (e.target as Element)?.closest?.(INTERACTIVE);
-          gsap.to(ring.current, {
-            scale: hit ? 1.9 : 1,
-            duration: 0.3,
-            ease: "power3",
-            overwrite: "auto",
+          let shown = false;
+          const move = safe((event: PointerEvent) => {
+            xTo(event.clientX);
+            yTo(event.clientY);
+            if (!shown) {
+              shown = true;
+              gsap.to(layer.current, { autoAlpha: 1, duration: 0.18 });
+            }
           });
-          gsap.to(dot.current, {
-            scale: hit ? 0 : 1,
-            duration: 0.3,
-            ease: "power3",
-            overwrite: "auto",
+
+          const over = safe((event: PointerEvent) => {
+            const hit = (event.target as Element)?.closest?.(INTERACTIVE);
+            gsap.to(dot.current, {
+              scale: hit ? 1.8 : 1,
+              duration: 0.2,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
           });
-        };
 
-        const leave = () => gsap.to(layer.current, { autoAlpha: 0, duration: 0.25 });
+          const down = safe(() => {
+            gsap.to(dot.current, { scale: 0.72, duration: 0.1, overwrite: "auto" });
+          });
 
-        window.addEventListener("pointermove", move);
-        document.addEventListener("pointerover", over);
-        document.addEventListener("pointerleave", leave);
+          const up = safe(() => {
+            gsap.to(dot.current, { scale: 1, duration: 0.18, overwrite: "auto" });
+          });
 
-        return () => {
-          html.classList.remove("has-cursor");
-          window.removeEventListener("pointermove", move);
-          document.removeEventListener("pointerover", over);
-          document.removeEventListener("pointerleave", leave);
-        };
-      },
-    );
+          const leave = safe(() => {
+            shown = false;
+            gsap.to(layer.current, { autoAlpha: 0, duration: 0.18 });
+          });
 
-    return () => mm.revert();
-  });
+          window.addEventListener("pointermove", move, { passive: true });
+          document.addEventListener("pointerover", over, { passive: true });
+          document.addEventListener("pointerdown", down, { passive: true });
+          document.addEventListener("pointerup", up, { passive: true });
+          document.addEventListener("pointerleave", leave);
+
+          return () => {
+            html.classList.remove("has-cursor");
+            window.removeEventListener("pointermove", move);
+            document.removeEventListener("pointerover", over);
+            document.removeEventListener("pointerdown", down);
+            document.removeEventListener("pointerup", up);
+            document.removeEventListener("pointerleave", leave);
+          };
+        },
+      );
+
+      return () => mm.revert();
+    },
+    { scope: layer },
+  );
 
   return (
     <div ref={layer} className="cursor-layer" aria-hidden>
-      <div ref={ring} className="cursor-ring" />
       <div ref={dot} className="cursor-dot" />
     </div>
   );
