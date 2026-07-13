@@ -66,8 +66,8 @@ function ActivityCard({ profile }: { profile: ActivityProfile }) {
               width={profile.width}
               height={profile.height}
               unoptimized
-              sizes="(max-width: 768px) 100vw, 722px"
-              className="h-auto w-auto min-w-full max-w-none"
+              sizes="(max-width: 767px) calc(100vw - 5rem), 420px"
+              className="activity-profile-image"
             />
           </div>
         ) : (
