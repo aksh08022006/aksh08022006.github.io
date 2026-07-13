@@ -87,7 +87,7 @@ export default function Motion({ children }: { children: ReactNode }) {
 
           // Scroll reveals, batched so items entering together share a stagger.
           gsap.set(q("[data-reveal]"), { autoAlpha: 0, y: 26 });
-          ScrollTrigger.batch("[data-reveal]", {
+          ScrollTrigger.batch(q("[data-reveal]"), {
             start: "top 88%",
             once: true,
             onEnter: (els) =>

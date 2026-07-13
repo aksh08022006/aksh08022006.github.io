@@ -3,7 +3,7 @@ import Cursor from "@/components/Cursor";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Work from "@/components/Work";
-import Blog from "@/components/Blog";
+import Activity from "@/components/Activity";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 
@@ -16,7 +16,7 @@ export default function Home() {
         <main>
           <Hero />
           <Work />
-          <Blog />
+          <Activity />
           <About />
           <Contact />
         </main>
