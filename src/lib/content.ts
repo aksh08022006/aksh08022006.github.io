@@ -6,8 +6,8 @@ export const profile = {
   name: "Aksh Kaushik",
   available: true,
   email: "aksh.heisenberg@gmail.com",
-  github: "https://github.com/aksh08022006",
-  githubHandle: "aksh08022006",
+  github: "https://github.com/akshhkaushik",
+  githubHandle: "akshhkaushik",
 };
 
 export const nav = [
@@ -28,7 +28,7 @@ export const work = {
   heading: "Work",
   intro:
     "Shipped products and substantive original work. Forks, templates, and smaller experiments stay on GitHub.",
-  more: { label: "More on GitHub", href: "https://github.com/aksh08022006" },
+  more: { label: "More on GitHub", href: "https://github.com/akshhkaushik" },
 };
 
 export const activity = {
@@ -38,9 +38,9 @@ export const activity = {
   profiles: {
     github: {
       label: "GitHub",
-      handle: "aksh08022006",
-      href: "https://github.com/aksh08022006",
-      heatmap: "https://ghchart.rshah.org/c24d2c/aksh08022006",
+      handle: "akshhkaushik",
+      href: "https://github.com/akshhkaushik",
+      heatmap: "https://ghchart.rshah.org/c24d2c/akshhkaushik",
       width: 722,
       height: 112,
     },

@@ -20,12 +20,18 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://akshhkaushik.github.io"),
   title: "Aksh Kaushik",
   description: "I'm Aksh. I build things, then take them apart to see how they work.",
   authors: [{ name: "Aksh Kaushik" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Aksh Kaushik",
     description: "I'm Aksh. I build things, then take them apart to see how they work.",
+    url: "/",
+    siteName: "Aksh Kaushik",
     type: "website",
   },
   robots: { index: true, follow: true },
