@@ -44,7 +44,7 @@ export const projects: Project[] = [
     status: "Research",
     tags: ["Python", "Remote sensing", "ML", "Next.js"],
     links: [
-      { label: "Source", href: "https://github.com/aksh08022006/vayu-aqi-hcho" },
+      { label: "Source", href: "https://github.com/akshhkaushik/vayu-aqi-hcho" },
     ],
   },
   {
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     links: [
       {
         label: "Source",
-        href: "https://github.com/aksh08022006/Credit-Card-Fraud-Detection--GAT-Transformer-Pipeline",
+        href: "https://github.com/akshhkaushik/Credit-Card-Fraud-Detection--GAT-Transformer-Pipeline",
       },
     ],
   },
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     status: "Open source",
     tags: ["Python", "OCR", "Agents", "Fineract"],
     links: [
-      { label: "Source", href: "https://github.com/aksh08022006/Mifos-Ai-Suite" },
+      { label: "Source", href: "https://github.com/akshhkaushik/Mifos-Ai-Suite" },
     ],
   },
   {
@@ -79,7 +79,7 @@ export const projects: Project[] = [
       "A Rust systems project focused on fast, memory-safe tooling and learning closer to the metal.",
     status: "Open source",
     tags: ["Rust", "Systems", "Networking"],
-    links: [{ label: "Source", href: "https://github.com/aksh08022006/Wifly" }],
+    links: [{ label: "Source", href: "https://github.com/akshhkaushik/Wifly" }],
   },
   {
     id: "07",
@@ -88,7 +88,7 @@ export const projects: Project[] = [
       "Quantitative analysis of futures pricing, margin simulation, and sensitivity for Indian equities.",
     status: "Complete",
     tags: ["Python", "Quant finance", "Jupyter"],
-    links: [{ label: "Source", href: "https://github.com/aksh08022006/DRM_Project" }],
+    links: [{ label: "Source", href: "https://github.com/akshhkaushik/DRM_Project" }],
   },
   {
     id: "08",
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     status: "Open source",
     tags: ["Python", "Automation", "Networking"],
     links: [
-      { label: "Source", href: "https://github.com/aksh08022006/BitsPilaniAuthScript" },
+      { label: "Source", href: "https://github.com/akshhkaushik/BitsPilaniAuthScript" },
     ],
   },
 ];

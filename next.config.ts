@@ -6,7 +6,7 @@ import { dirname } from "node:path";
 const root = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
-  // Static export so it deploys cleanly to Cloudflare Pages (output dir: out/)
+  // Static export for the GitHub Pages deployment workflow (output dir: out/).
   output: "export",
   images: {
     unoptimized: true,
