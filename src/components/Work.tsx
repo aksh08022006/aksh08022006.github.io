@@ -67,7 +67,9 @@ export default function Work() {
           <h2 className="eyebrow">{work.heading}</h2>
           <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted">{work.intro}</p>
         </div>
-        <span className="eyebrow hidden sm:block">Selected / 08</span>
+        <span className="eyebrow hidden sm:block">
+          Selected / {String(projects.length).padStart(2, "0")}
+        </span>
       </div>
 
       <div className="divide-y divide-line">
