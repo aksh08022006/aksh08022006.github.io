@@ -20,6 +20,30 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "01",
+    name: "CEO Voice",
+    description:
+      "An evidence-backed executive communication system that models measured voice patterns, keeps structure independent, and makes generation and revision traceable.",
+    status: "Live",
+    tags: ["Next.js", "Python", "LLMs", "Evaluation"],
+    links: [
+      { label: "Live", href: "https://ceo-voice-platform.vercel.app/" },
+      { label: "Source", href: "https://github.com/akshhkaushik/ceo-voice-platform" },
+    ],
+  },
+  {
+    id: "02",
+    name: "Veritas",
+    description:
+      "An evidence intelligence platform that reconstructs how public claims emerge and spread, then separates support, contradiction, and uncertainty with cited sources.",
+    status: "Live",
+    tags: ["Next.js", "Evidence retrieval", "Provenance", "AI"],
+    links: [
+      { label: "Live", href: "https://veritas-virid.vercel.app/" },
+      { label: "Source", href: "https://github.com/akshhkaushik/veritas" },
+    ],
+  },
+  {
+    id: "03",
     name: "GLOB",
     description:
       "A living spatial globe that turns photographs into memories you can revisit by place, time, and emotion.",
@@ -28,7 +52,7 @@ export const projects: Project[] = [
     links: [{ label: "Live", href: "https://glob.akshh.workers.dev/" }],
   },
   {
-    id: "02",
+    id: "04",
     name: "EvoComb",
     description:
       "A transparent Environmental Stress Index for Delhi NCR, combining noise, crowding, heat, and air quality.",
@@ -37,7 +61,7 @@ export const projects: Project[] = [
     links: [{ label: "Live", href: "https://evo-comb-web.vercel.app/" }],
   },
   {
-    id: "03",
+    id: "05",
     name: "VAYU",
     description:
       "Satellite-derived surface AQI and HCHO hotspot detection over India, with an honest spatial-validation pipeline.",
@@ -48,7 +72,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "04",
+    id: "06",
     name: "Fraud detection pipeline",
     description:
       "A graph-attention and Transformer pipeline for transaction risk, exposed through an API and browser extension.",
@@ -62,7 +86,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "05",
+    id: "07",
     name: "Mifos AI Suite",
     description:
       "AI-assisted digitisation, report generation, and legacy-data migration tooling for the Mifos X ecosystem.",
@@ -73,7 +97,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "06",
+    id: "08",
     name: "Wifly",
     description:
       "A Rust systems project focused on fast, memory-safe tooling and learning closer to the metal.",
@@ -82,7 +106,7 @@ export const projects: Project[] = [
     links: [{ label: "Source", href: "https://github.com/akshhkaushik/Wifly" }],
   },
   {
-    id: "07",
+    id: "09",
     name: "Derivative risk management",
     description:
       "Quantitative analysis of futures pricing, margin simulation, and sensitivity for Indian equities.",
@@ -91,7 +115,7 @@ export const projects: Project[] = [
     links: [{ label: "Source", href: "https://github.com/akshhkaushik/DRM_Project" }],
   },
   {
-    id: "08",
+    id: "10",
     name: "BITS network keepalive",
     description:
       "A small, resilient authentication helper that keeps campus network sessions alive with observable logging.",
